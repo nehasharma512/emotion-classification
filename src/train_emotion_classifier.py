@@ -11,6 +11,7 @@ from keras.callbacks import ReduceLROnPlateau
 from keras.preprocessing.image import ImageDataGenerator
 
 from models.cnn import mini_XCEPTION
+from models.densenet import DenseNet
 from utils.datasets import DataManager
 from utils.datasets import split_data
 from utils.preprocessor import preprocess_input
@@ -36,7 +37,8 @@ data_generator = ImageDataGenerator(
                         horizontal_flip=True)
 
 # model parameters/compilation
-model = mini_XCEPTION(input_shape, num_classes)
+#model = mini_XCEPTION(input_shape, num_classes)
+model = DenseNet(classes=num_classes, input_shape=(64,64,1), depth=40, growth_rate=12, bottleneck=True, reduction=0.5)
 model.compile(optimizer='adam', loss='categorical_crossentropy',
               metrics=['accuracy'])
 model.summary()
